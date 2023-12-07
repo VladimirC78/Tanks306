@@ -12,6 +12,8 @@ screen_height = 600
 
 pygame.init()
 screen = pygame.display.set_mode((screen_width,screen_height))
+menu_background = pygame.image.load("имя файла")
+settings_background = pygame.image.load("имя файла")
 class Image_Button():
     def __init__(self,x,y,width,height,image_path,hover_image_path,sound_path=None):
         self.x=x #координата х верхнего левого угла
@@ -46,7 +48,8 @@ def main_menu():
     buttons = [start_button,settings_button quit_button]
     running=True
     while running:
-       screen.fill((255,255,255))
+       screen.fill((0,0,0))
+       screen.blit(settings_background, (0, 0))
        for event in pygame.event.get():
            if event.type == pygame.QUIT:
                running = False
@@ -64,3 +67,23 @@ def main_menu():
            button.check_hover(pygame.mouse.get_pos())
            button.draw(screen)
        pygame.display.flip()
+def settings_menu():
+    back_button = Image_Button(screen_width / 2 - 150 / 2, 500, 150, 74, "button_back.png","hovered_button_back.png")
+    buttons=[back_button]
+    running = True
+    while running:
+        screen.fill((0, 0, 0))
+        screen.blit(settings_background,(0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            for button in buttons:
+                button.handle_event(event)
+            if  event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and back_button.is_hovered:
+                main_menu()
+        for button in buttons:
+            button.check_hover(pygame.mouse.get_pos())
+            button.draw(screen)
+        pygame.display.flip()
