@@ -1,6 +1,9 @@
 import pygame
 import sys
 import numpy as np
+import objects
+import load_hitbox
+import Levels_encoded
 
 """Нужно будет загрузить картинки и звуки в папку проекта, image path  и ему подобные - переменные, в которые 
 мы записываем путь на звуки и картинки(если загрузим в проект, то вместо полного пути можно будет использовать просто имя,
@@ -94,3 +97,48 @@ def settings_menu():
             button.check_hover(pygame.mouse.get_pos())
             button.draw(screen)
         pygame.display.flip()
+
+
+level_finished = False
+game_finished = False
+bullets = [] # Список выстреленных пуль
+
+while not game_finished:
+
+    """Инициализация нового уровня"""
+
+    # TODO Загрузка случайной карты из файла
+
+    player1 = objects.Tank(0, 0, 20)        # Пример, начальные данные зависят от карты
+    player2 = objects.Tank(500, 500, 20)
+    tanks = list([player1, player2]) # Список танков на карте
+    walls = load_hitbox.create_walls(Levels_encoded.field, load_hitbox.block_size)
+
+    while not level_finished:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+            # TODO Движение танков и выстрелы, один танк управляется стрелками,другой wasd
+            # Поворот танков - по или против часовой стрелке - стрелками вправо или влево
+            # За раз можно выстрелить до 5 раз, заряды со временем восстанавливаются
+            elif event.type == pygame.KEYUP:
+            # TODO Остановка танка
+
+        for t in tanks:
+            for w in walls:
+                # TODO Танк не может проходить через стены - меняем скорость и фиксируем координату
+                if w.load_hitbox.wall_hit(t)['u']:
+                    pass
+                if w.load_hitbox.wall_hit(t)['d']:
+                    pass
+                if w.load_hitbox.wall_hit(t)['l']:
+                    pass
+                if w.load_hitbox.wall_hit(t)['r']:
+                    pass
+
+        # TODO Обработка столкновений пуль со стенками - рикошеты, не более одного, при повторном
+        # столкновении пулька исчезает
+
+        #TODO Обработка попаданий пуль в танк, при попадании уровень заканчивается, игра переходит на следующий
+
+
+

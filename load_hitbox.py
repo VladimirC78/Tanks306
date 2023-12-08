@@ -1,4 +1,5 @@
 import Levels_encoded
+import main
 
 
 def calculate_distance(place1, place2):
@@ -13,6 +14,8 @@ def create_walls(field, block_size):
             if field[i][j] == 1:
                 walls.append(Wall(block_size, i * block_size, j * block_size))
 
+    return walls
+
 
 class Wall:
     def __init__(self, block_size, x, y):
@@ -25,11 +28,11 @@ class Wall:
         # Возвращает словарь, указывающий с какой стороны произошло столкновение, нужно использовать
         # в move_draw для изменения скорости танка или пули
         dist = calculate_distance(obj.r, self.r)
-        if dist[0] < 0 and abs(dist[0]) <= self.block_size + obj.scale:
+        if dist[0] < 0 and abs(dist[0]) <= obj.scale:
             self.hit_dict['l'] = True
         if dist[0] > 0 and abs(dist[0]) <= self.block_size + obj.scale:
             self.hit_dict['r'] = True
-        if dist[1] < 0 and abs(dist[1]) <= self.block_size + obj.scale:
+        if dist[1] < 0 and abs(dist[1]) <= obj.scale:
             self.hit_dict['u'] = True
         if dist[1] > 0 and abs(dist[1]) <= self.block_size + obj.scale:
             self.hit_dict['d'] = True
@@ -38,8 +41,8 @@ class Wall:
 
 
 field = Levels_encoded.level1
-scale_factor = 800 // len(field)  # screen_width
-block_size = 20 * scale_factor
+scale_factor = main.screen_height // len(field)  # screen_height
+block_size = scale_factor
 walls = []
 
 create_walls(field, block_size)
