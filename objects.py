@@ -1,8 +1,11 @@
 class Tank:
-    def __init__(self, x, y, scale):
+    def __init__(self, x, y,v,omega, scale,type):
+        self.type = type
         self.r = list([x, y])  # Координаты танка по осям х и у
         self.scale = scale  # Характерный размер танка
-        self.v = [0, 0]  # Скорость танка по осям х и у
+        self.v = v # Модуль скорости
+        self.ang = 0 #изначально танк направлен вертикально вверх, угол отсчитывается против часовой стрелки
+        self.omega = omega #потом подберем
         self.charges = 5  # Количество выстрелов у танка, перезаряжается со временем
 
 
