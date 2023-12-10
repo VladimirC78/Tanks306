@@ -24,7 +24,7 @@ class Tank:
         return self.tank_hit_walls
 
                 # Количество выстрелов у танка, перезаряжается со временем
-
+        self.live=1 #жизнь танка
 
 class Bullet:
     def __init__(self, x, y, v, scale):

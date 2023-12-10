@@ -12,8 +12,8 @@ screen_height = 600
 
 pygame.init()
 screen = pygame.display.set_mode((screen_width,screen_height))
-menu_background = pygame.image.load("имя файла")
-settings_background = pygame.image.load("имя файла")
+menu_background = pygame.image.load("back.jpg")
+settings_background = pygame.image.load("settings.jpg")
 class Image_Button():
     def __init__(self,x,y,width,height,image_path,hover_image_path,sound_path=None):
         self.x=x #координата х верхнего левого угла
@@ -39,12 +39,12 @@ class Image_Button():
 
 
 
-def main_menu():
+def main_menu(screen):
 
 
-    start_button = Image_Button(screen_width / 2 - 252 / 2, 100, 252, 74, "start_button.jpg","hovered_start_button.jpg")
-    quit_button = Image_Button(screen_width / 2 - 50, 250, 252, 74, "quit_button.png", "hovered_quit_button.png")
-    settings_button = Image_Button(screen_width / 2 - 252 / 2, 400, 252, 74, "settings_button.jpg","hovered_settings_button.jpg")
+    start_button = Image_Button(screen_width / 2 - 252 / 2, 100, 252, 74, "start_button.png","hovered_start_button.png")
+    quit_button = Image_Button(screen_width / 2 -125, 250, 252, 74, "quit_button.png", "hovered_quit_button.png")
+    settings_button = Image_Button(screen_width / 2 - 252 / 2, 400, 252, 150, "settings_button.png","hovered_settings_button.png")
     buttons = [start_button,settings_button, quit_button]
     running=True
     while running:
@@ -67,7 +67,7 @@ def main_menu():
            button.check_hover(pygame.mouse.get_pos())
            button.draw(screen)
        pygame.display.flip()
-def settings_menu():
+def settings_menu(screen):
     back_button = Image_Button(screen_width / 2 - 150 / 2, 500, 150, 74, "button_back.png","hovered_button_back.png")
     buttons=[back_button]
     running = True
@@ -87,5 +87,23 @@ def settings_menu():
             button.check_hover(pygame.mouse.get_pos())
             button.draw(screen)
         pygame.display.flip()
+pygame.init()
+screen=pygame.display.set_mode((screen_width,screen_height))
+window=pygame.display.set_mode((screen_width,screen_height))
+all_sprites=pygame.sprite.Group()
+clock=pygame.time.Clock()
+main_menu=main_menu(screen)
+settings_menu=settings_menu(screen)
+
+finished = False
+font=pygame.font.Font(None,36)
+while not finished:
+
+    pygame.display.update()
+
+
+
+if __name__ == "__main__":
+    main_menu()
 
 main_menu()
