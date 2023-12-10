@@ -82,7 +82,7 @@ def settings_menu(screen):
             for button in buttons:
                 button.handle_event(event)
             if  event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and back_button.is_hovered:
-                main_menu()
+                main_menu(screen)
         for button in buttons:
             button.check_hover(pygame.mouse.get_pos())
             button.draw(screen)
