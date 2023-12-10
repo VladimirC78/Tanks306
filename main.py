@@ -58,7 +58,7 @@ def main_menu(screen):
            for button in buttons:
                button.handle_event(event)
            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and settings_button.is_hovered:
-               settings_menu()
+               settings_menu(screen)
            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and quit_button.is_hovered:
                running=False
                pygame.quit()
