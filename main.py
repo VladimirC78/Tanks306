@@ -11,8 +11,10 @@ screen_width = 800
 screen_height = 600
 
 pygame.init()
+all_sprites=pygame.sprite.Group()
+clock=pygame.time.Clock()
 screen = pygame.display.set_mode((screen_width,screen_height))
-menu_background = pygame.image.load("back.jpg")
+menu_background = pygame.image.load("settings.jpg")
 settings_background = pygame.image.load("settings.jpg")
 class Image_Button():
     def __init__(self,x,y,width,height,image_path,hover_image_path,sound_path=None):
@@ -49,7 +51,7 @@ def main_menu(screen):
     running=True
     while running:
        screen.fill((0,0,0))
-       screen.blit(settings_background, (0, 0))
+       screen.blit(menu_background, (-300, 0))
        for event in pygame.event.get():
            if event.type == pygame.QUIT:
                running = False
@@ -88,22 +90,21 @@ def settings_menu(screen):
             button.draw(screen)
         pygame.display.flip()
 pygame.init()
-screen=pygame.display.set_mode((screen_width,screen_height))
-window=pygame.display.set_mode((screen_width,screen_height))
-all_sprites=pygame.sprite.Group()
-clock=pygame.time.Clock()
-main_menu=main_menu(screen)
-settings_menu=settings_menu(screen)
+
+
+
+#main_menu=main_menu(screen)
+#settings_menu=settings_menu(screen)
 
 finished = False
 font=pygame.font.Font(None,36)
-while not finished:
+#while not finished:
 
-    pygame.display.update()
+    #pygame.display.update()
 
 
 
 if __name__ == "__main__":
-    main_menu()
+    main_menu(screen)
 
-main_menu()
+
