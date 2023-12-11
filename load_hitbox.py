@@ -27,6 +27,7 @@ class Wall:
         # Проверка на соударение объекта со стенкой, принимает на вход параметры объекта
         # Возвращает словарь, указывающий с какой стороны произошло столкновение, нужно использовать
         # в move_draw для изменения скорости танка или пули
+        self.hit_dict = {'u': False, 'd': False, 'r': False, 'l': False}
         dist = calculate_distance(obj.r, self.r)
         if dist[0] < 0 and abs(dist[0]) <= obj.scale:
             self.hit_dict['l'] = True
@@ -40,7 +41,7 @@ class Wall:
         return self.hit_dict
 
 
-field = Levels_encoded.level1
+field = Levels_encoded.field
 scale_factor = main.screen_height // len(field)  # screen_height
 block_size = scale_factor
 walls = []
