@@ -1,4 +1,3 @@
-
 class Tank:
     def __init__(self, x, y, v, omega, scale, type):
         self.type = type
@@ -9,22 +8,24 @@ class Tank:
         self.omega = omega  # потом подберем
         self.charges = 5
         self.tank_hit_walls = {'u': False, 'd': False, 'r': False, 'l': False}
-    def tank_check_hit(self,walls):
-        L,R,U,D = 0,0,0,0
+        self.live = 1  # жизнь танка
+
+    def tank_check_hit(self, walls):
+        l, r, u, d = False, False, False, False
         for wall in walls:
-            if wall.wall_hit(self)["l"]==True:
-                L+=1
-            if wall.wall_hit(self)["r"]==True:
-                 R+=1
-            if wall.wall_hit(self)["u"]==True:
-                 U+=1
-            if wall.wall_hit(self)["d"]==True:
-                 D+=1
-        self.tank_hit_walls = {'u': bool(U), 'd': bool(D), 'r': bool(R), 'l': bool(L)}
+            if wall.wall_hit(self)["l"]:
+                l = True
+            if wall.wall_hit(self)["r"]:
+                r = True
+            if wall.wall_hit(self)["u"]:
+                u = True
+            if wall.wall_hit(self)["d"]:
+                d = True
+        self.tank_hit_walls = {'u': u, 'd': d, 'r': r, 'l': l}
         return self.tank_hit_walls
 
-                # Количество выстрелов у танка, перезаряжается со временем
-        self.live=1 #жизнь танка
+        # Количество выстрелов у танка, перезаряжается со временем
+
 
 class Bullet:
     def __init__(self, x, y, v, scale):
