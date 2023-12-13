@@ -1,7 +1,10 @@
+import random
 import Levels_encoded
 import main
 import objects
 import numpy as np
+
+map_number = 20
 
 
 def calculate_distance(place1, place2):
@@ -11,12 +14,21 @@ def calculate_distance(place1, place2):
 
 def create_walls(field, block_size):
     # Создает стены
+    walls = []
     for i in range(len(field)):
         for j in range(len(field[0])):
             if field[i][j] == 1:
                 walls.append(Wall(block_size, i * block_size, j * block_size))
 
     return walls
+
+
+def create_new_map():
+    map_choice = random.choice(range(map_number))
+    field = Levels_encoded.fields[map_choice]
+    scale_factor = main.screen_height // len(field)
+    block_size = scale_factor
+    create_walls(field, block_size)
 
 
 class Wall:
@@ -42,8 +54,8 @@ class Wall:
                 self.hit_dict['d'] = True
         elif isinstance(obj, objects.Tank):
             # Координаты каждой из вершин танка
-            r_a = [obj.r[0] + 0.5 * obj.scale * np.cos(np.pi/4 - obj.ang),
-                   obj.r[1] - 0.5 * obj.scale * np.sin(np.pi/4 - obj.ang)]
+            r_a = [obj.r[0] + 0.5 * obj.scale * np.cos(np.pi / 4 - obj.ang),
+                   obj.r[1] - 0.5 * obj.scale * np.sin(np.pi / 4 - obj.ang)]
             r_c = [obj.r[0] - 0.5 * obj.scale * np.cos(np.pi / 4 - obj.ang),
                    obj.r[1] + 0.5 * obj.scale * np.sin(np.pi / 4 - obj.ang)]
             r_b = [obj.r[0] + 0.5 * obj.scale * np.cos(np.pi / 4 + obj.ang),
@@ -66,11 +78,3 @@ class Wall:
                 self.hit_dict['d'] = True
 
         return self.hit_dict
-
-
-field = Levels_encoded.field
-scale_factor = main.screen_height // len(field)  # screen_height
-block_size = scale_factor
-walls = []
-
-create_walls(field, block_size)
