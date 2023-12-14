@@ -10,6 +10,7 @@ from load_hitbox import create_new_map
  """
 screen_width = 800
 screen_height = 600
+FPS = 60
 
 pygame.init()
 all_sprites = pygame.sprite.Group()
@@ -106,16 +107,19 @@ def main():
     screen = pygame.display.set_mode((1200, 800))
     game_finished = False
     level_finished = False
-    while not game_finished:
-        screen.fill((255, 255, 255))
-        walls, field, block_size = create_new_map()
-        for i in range(len(field)):
-            for j in range(len(field[i])):
-                if field[i][j] == 1:
-                    pygame.draw.rect(screen, (0, 0, 0), (block_size * i, block_size * j, block_size, block_size))
-        while not level_finished:
-            pygame.display.update()
-            pass
+    screen.fill((255, 255, 255))
+    walls, field, block_size = create_new_map()
+    for i in range(len(field)):
+        for j in range(len(field[i])):
+            if field[i][j] == 1:
+                pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
+    while not level_finished:
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                pygame.draw.rect(screen, (0, 0, 0), (0, 0, 1200, 800))
+                level_finished = True
+        clock.tick(FPS)
 
 
 if __name__ == "__main__":
