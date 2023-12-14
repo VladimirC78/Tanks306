@@ -12,6 +12,49 @@ def calculate_distance(place1, place2):
     return place1[0] - place2[0], place1[1] - place2[1]
 
 
+def segment_distance(x, y, x1, y1, x2, y2):  # Рассчитывает расстояние между точкой (х, у) и отрезком (х1, у1, х2, у2)
+    v1 = np.array([x - x1, y - y1])
+    v2 = np.array([x - x2, y - y2])
+    v3 = np.array([x2 - x1, y2 - y1])
+    v4 = -v3
+
+    prod1 = np.dot(v1, v3)
+    prod2 = np.dot(v2, v4)
+
+    if prod1 * prod2 < 0:
+        return min(((x - x1) ** 2 + (y - y1) ** 2) ** 0.5, ((x - x2) ** 2 + (y - y2) ** 2) ** 0.5)
+    else:
+        if x2 != x1:
+            k = (y2 - y1) / (x2 - x1)
+            b1 = y1 - k * x1
+            return abs(y - k * x - b1) / (k ** 2 + 1) ** 0.5
+        else:
+            return abs(x - x1)
+
+
+def bullet_hittest(obj1, obj2):  # Проверка попадания пули в танк, здесь obj1 - пуля, obj2 - танк
+    # Координаты каждой из вершин танка
+    r_a = [obj2.r[0] + 0.5 * obj2.scale * np.cos(np.pi / 4 - obj2.ang),
+           obj2.r[1] - 0.5 * obj2.scale * np.sin(np.pi / 4 - obj2.ang)]
+    r_c = [obj2.r[0] - 0.5 * obj2.scale * np.cos(np.pi / 4 - obj2.ang),
+           obj2.r[1] + 0.5 * obj2.scale * np.sin(np.pi / 4 - obj2.ang)]
+    r_b = [obj2.r[0] + 0.5 * obj2.scale * np.cos(np.pi / 4 + obj2.ang),
+           obj2.r[1] + 0.5 * obj2.scale * np.sin(np.pi / 4 + obj2.ang)]
+    r_d = [obj2.r[0] - 0.5 * obj2.scale * np.cos(np.pi / 4 + obj2.ang),
+           obj2.r[1] - 0.5 * obj2.scale * np.sin(np.pi / 4 + obj2.ang)]
+
+    dist_ab = segment_distance(obj1.r[0], obj1.r[1], r_a[0], r_a[1], r_b[0], r_b[1])
+    dist_bc = segment_distance(obj1.r[0], obj1.r[1], r_b[0], r_b[1], r_c[0], r_c[1])
+    dist_cd = segment_distance(obj1.r[0], obj1.r[1], r_c[0], r_c[1], r_d[0], r_d[1])
+    dist_da = segment_distance(obj1.r[0], obj1.r[1], r_d[0], r_d[1], r_a[0], r_a[1])
+
+    if dist_ab <= obj1.scale or dist_bc <= obj1.scale or dist_cd <= obj1.scale or dist_da <= obj1.scale:
+        return True
+    else:
+        return False
+
+
+
 def create_walls(field, block_size):
     # Создает стены
     walls = []
@@ -29,7 +72,7 @@ def create_new_map():
     scale_factor = 800 // len(field)
     block_size = scale_factor
     walls = create_walls(field, block_size)
-    return walls, field,block_size
+    return walls, field, block_size
 
 
 class Wall:
