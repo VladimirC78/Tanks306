@@ -28,7 +28,8 @@ def create_new_map():
     field = Levels_encoded.fields[map_choice]
     scale_factor = main.screen_height // len(field)
     block_size = scale_factor
-    create_walls(field, block_size)
+    walls = create_walls(field, block_size)
+    return walls
 
 
 class Wall:
