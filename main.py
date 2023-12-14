@@ -1,6 +1,7 @@
 import pygame
 import sys
 from load_hitbox import create_new_map
+import objects
 
 """Нужно будет загрузить картинки и звуки в папку проекта, image path  и ему подобные - переменные, в которые 
 мы записываем путь на звуки и картинки(если загрузим в проект, то вместо полного пути можно будет использовать просто имя,
@@ -109,12 +110,19 @@ def main():
     while not game_finished:
         screen.fill((255, 255, 255))
         walls, field, block_size = create_new_map()
-        # tanks = list(Tank(...), Tank(...))
+        tanks = []
         bullets = []
+        flag = False
         for i in range(len(field)):
             for j in range(len(field[i])):
                 if field[i][j] == 1:
                     pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
+                if field[i][j] == 2:
+                    if not flag:
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 0, 0.6 * block_size, 1))
+                        flag = True
+                    else:
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 0, 0.6 * block_size, 2))
         while not level_finished:
             pygame.display.update()
             for event in pygame.event.get():
