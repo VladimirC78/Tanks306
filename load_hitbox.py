@@ -1,10 +1,10 @@
 import random
 import Levels_encoded
-import main
+
 import objects
 import numpy as np
 
-map_number = 20
+map_number = 2
 
 
 def calculate_distance(place1, place2):
@@ -16,7 +16,7 @@ def create_walls(field, block_size):
     # Создает стены
     walls = []
     for i in range(len(field)):
-        for j in range(len(field[0])):
+        for j in range(len(field[i])):
             if field[i][j] == 1:
                 walls.append(Wall(block_size, i * block_size, j * block_size))
 
@@ -26,10 +26,10 @@ def create_walls(field, block_size):
 def create_new_map():
     map_choice = random.choice(range(map_number))
     field = Levels_encoded.fields[map_choice]
-    scale_factor = main.screen_height // len(field)
+    scale_factor = 800 // len(field)
     block_size = scale_factor
     walls = create_walls(field, block_size)
-    return walls, field
+    return walls, field,block_size
 
 
 class Wall:

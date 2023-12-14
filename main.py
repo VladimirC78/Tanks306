@@ -1,5 +1,6 @@
 import pygame
 import sys
+from load_hitbox import create_new_map
 
 """Нужно будет загрузить картинки и звуки в папку проекта, image path  и ему подобные - переменные, в которые 
 мы записываем путь на звуки и картинки(если загрузим в проект, то вместо полного пути можно будет использовать просто имя,
@@ -51,8 +52,11 @@ def main_menu(screen):
     running=True
     while running:
        screen.fill((0,0,0))
-       screen.blit(menu_background, (-300, 0))
+       #screen.blit(menu_background, (-300, 0))
        for event in pygame.event.get():
+           if event.type==pygame.MOUSEBUTTONDOWN and event.button==1 and start_button.is_hovered:
+               running=False
+               main()
            if event.type == pygame.QUIT:
                running = False
                pygame.quit()
@@ -65,6 +69,7 @@ def main_menu(screen):
                running=False
                pygame.quit()
                sys.exit()
+
        for button in buttons:
            button.check_hover(pygame.mouse.get_pos())
            button.draw(screen)
@@ -89,18 +94,39 @@ def settings_menu(screen):
             button.check_hover(pygame.mouse.get_pos())
             button.draw(screen)
         pygame.display.flip()
+
+def main():
+
+    screen=pygame.display.set_mode((1200,800))
+    game_finished=False
+    level_finished=False
+    while not(game_finished):
+        screen.fill((255,255,255))
+        walls,field,block_size=create_new_map()
+        for i in range(len(field)):
+            for j in range(len(field[i])):
+                if field[i][j]==1:
+                    pygame.draw.rect(screen,(0,0,0),(block_size*i,block_size*j,block_size,block_size))
+        while not(level_finished):
+            pygame.display.update()
+            level_finished = True
+            game_finished = True
+
+
+
+
+
+
+
+
+
 pygame.init()
-
-
-
-#main_menu=main_menu(screen)
-#settings_menu=settings_menu(screen)
-
+main_menu=main_menu(screen)
+settings_menu=settings_menu(screen)
 finished = False
 font=pygame.font.Font(None,36)
-#while not finished:
-
-    #pygame.display.update()
+while not finished:
+    pygame.display.update()
 
 
 
