@@ -1,9 +1,9 @@
 class Tank:
-    def __init__(self, x, y, v, omega, scale, type):
+    def __init__(self, x, y, omega, scale, type):
         self.type = type
         self.r = list([x, y])  # Координаты танка по осям х и у
         self.scale = scale * 0.6  # Характерный размер танка
-        self.v = v  # Модуль скорости
+        self.v = 0  # Модуль скорости
         self.ang = 0  # Изначально танк направлен вправо, угол в радианах и отсчитывается по часовой стрелке
         self.omega = omega  # потом подберем
         self.charges = 5
