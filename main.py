@@ -1,6 +1,6 @@
 import pygame
 import sys
-from load_hitbox import create_new_map
+from load_hitbox import *
 import objects
 from move_draw import tank_move
 
@@ -140,6 +140,9 @@ def main():
             for t in tanks:
                 t.draw(screen)
                 tank_move(t, walls)
+                for w in walls:
+                    w.wall_hit(t)
+
 
                 #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     # bullets.append(Bullet(...)) - выстрел
