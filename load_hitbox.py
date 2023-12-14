@@ -29,7 +29,7 @@ def create_new_map():
     scale_factor = main.screen_height // len(field)
     block_size = scale_factor
     walls = create_walls(field, block_size)
-    return walls
+    return walls, field
 
 
 class Wall:
