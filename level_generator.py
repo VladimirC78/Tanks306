@@ -27,6 +27,8 @@ def make_field(image):
         for j in range(field_size[1]):
             if equals(image[i][j][:3], [0, 0, 0]):
                 field[i][j] = 1
+            elif equals(image[i][j][:3], [255, 0, 0]):
+                field[i][j] = 2
     return field
 
 
