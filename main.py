@@ -110,7 +110,6 @@ def main():
         while not(level_finished):
             pygame.display.update()
             level_finished = True
-            game_finished = True
 
 
 
@@ -121,12 +120,6 @@ def main():
 
 
 pygame.init()
-main_menu=main_menu(screen)
-settings_menu=settings_menu(screen)
-finished = False
-font=pygame.font.Font(None,36)
-while not finished:
-    pygame.display.update()
 
 
 
