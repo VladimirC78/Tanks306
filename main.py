@@ -109,6 +109,7 @@ def main():
     game_finished = False
     level_finished = False
     while not game_finished:
+
         screen.fill((255, 255, 255))
         walls, field, block_size = create_new_map()
         tanks = []
@@ -120,21 +121,25 @@ def main():
                     pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
                 if field[i][j] == 2:
                     if not flag:
-                        tanks.append(objects.Tank(block_size * j, block_size * i, 0, 0.6 * block_size, 1))
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 1, 0.6 * block_size, 1))
                         flag = True
                     else:
-                        tanks.append(objects.Tank(block_size * j, block_size * i, 0, 0.6 * block_size, 2))
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 1, 0.6 * block_size, 2))
         while not level_finished:
             pygame.display.update()
+            screen.fill((255, 255, 255))
+            for i in range(len(field)):
+                for j in range(len(field[i])):
+                    if field[i][j] == 1:
+                        pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
             for event in pygame.event.get():
-                pygame.display.update()
-                print(tanks)
+                # print(tanks)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                for t in tanks:
-                    t.draw(screen)
-                    tank_move(t, walls)
+            for t in tanks:
+                t.draw(screen)
+                tank_move(t, walls)
 
                 #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     # bullets.append(Bullet(...)) - выстрел

@@ -4,7 +4,7 @@ class Tank:
         self.type = type
         self.r = list([x, y])  # Координаты танка по осям х и у
         self.scale = scale * 0.6  # Характерный размер танка
-        self.v = 0  # Модуль скорости
+        self.v = 1  # Модуль скорости
         self.ang = 0  # Изначально танк направлен вправо, угол в радианах и отсчитывается по часовой стрелке
         self.omega = omega  # потом подберем
         self.charges = 5
@@ -27,12 +27,9 @@ class Tank:
 
         # Количество выстрелов у танка, перезаряжается со временем
     def draw(self,screen):
-        pygame.draw.circle(
-            screen,
-            (0,0,0),
-            (self.r[0], self.r[1]),
-            5
-        )
+        target_surf = pygame.image.load('tank.png')
+        target_surf = pygame.transform.scale(target_surf, (self.scale*10,self.scale*10))
+        screen.blit(target_surf, (self.r[0], self.r[1]))
 
 
 
