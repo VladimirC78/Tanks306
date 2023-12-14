@@ -1,3 +1,4 @@
+import pygame
 class Tank:
     def __init__(self, x, y, omega, scale, type):
         self.type = type
@@ -25,6 +26,15 @@ class Tank:
         return self.tank_hit_walls
 
         # Количество выстрелов у танка, перезаряжается со временем
+    def draw(self,screen):
+        pygame.draw.circle(
+            screen,
+            (0,0,0),
+            (self.r[0], self.r[1]),
+            5
+        )
+
+
 
 
 class Bullet:

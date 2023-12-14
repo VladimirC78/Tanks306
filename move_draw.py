@@ -31,6 +31,7 @@ def motion_up(obj,
             obj.r[0] += obj.v * np.sin(obj.ang)
     if (obj.tank_check_hit(walls)["r"] == obj.tank_check_hit(walls)["l"]) and obj.tank_check_hit(walls)["r"] == False:
         obj.r[0] += obj.v * np.sin(obj.ang)
+        print(2)
 
     if obj.tank_check_hit(walls)["u"]:
         if np.cos(obj.ang) <= 0:
@@ -87,6 +88,10 @@ def tank_move(obj, walls):
             obj.ang += obj.omega
         elif keys[pygame.K_RIGHT]:
             obj.ang -= obj.omega
+
+
+
+
 
 
 """Итог работы: пришлось писать для танка свой словарь столкновений: если он контачит, например, слева, хоть с одной стеной,

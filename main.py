@@ -2,6 +2,7 @@ import pygame
 import sys
 from load_hitbox import create_new_map
 import objects
+from move_draw import tank_move
 
 """Нужно будет загрузить картинки и звуки в папку проекта, image path  и ему подобные - переменные, в которые 
 мы записываем путь на звуки и картинки(если загрузим в проект, то вместо полного пути можно будет использовать просто имя,
@@ -57,7 +58,7 @@ def main_menu(screen):
     running = True
     while running:
         screen.fill((0, 0, 0))
-        # screen.blit(menu_background, (-300, 0))
+        screen.blit(menu_background, (-300, 0))
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and start_button.is_hovered:
                 running = False
@@ -126,12 +127,17 @@ def main():
         while not level_finished:
             pygame.display.update()
             for event in pygame.event.get():
+                pygame.display.update()
+                print(tanks)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    # bullets.append(Bullet(...)) - выстрел
+                for t in tanks:
+                    t.draw(screen)
+                    tank_move(t, walls)
 
+                #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    # bullets.append(Bullet(...)) - выстрел
 
 
 if __name__ == "__main__":
