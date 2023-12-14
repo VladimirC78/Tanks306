@@ -112,7 +112,7 @@ def main():
         for i in range(len(field)):
             for j in range(len(field[i])):
                 if field[i][j] == 1:
-                    pygame.draw.rect(screen, (0, 0, 0), (block_size * i, block_size * j, block_size, block_size))
+                    pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
         while not level_finished:
             pygame.display.update()
             pass
