@@ -148,7 +148,7 @@ class Wall:
         self.block_size = block_size
         self.r = list([x, y])
         self.hit_dict = {'u': False, 'd': False, 'r': False, 'l': False}
-        self.rect = pygame.Rect(x - block_size * 0.5, y - block_size * 0.5, block_size, block_size)
+        self.rect = pygame.Rect(y - block_size * 0.5, x - block_size * 0.5, block_size, block_size)
 
     def wall_hit(self, obj):
         # Проверка на соударение объекта со стенкой, принимает на вход параметры объекта

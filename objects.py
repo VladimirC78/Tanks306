@@ -42,6 +42,7 @@ class Tank:
         rect = image.get_rect(center=(self.r[0], self.r[1]))
         surf, r = rot_center(image, rect, self.ang * 180 / math.pi)
         screen.blit(surf, r)
+        return rect
 
 
 class Bullet:

@@ -26,26 +26,19 @@ def motion_up(obj,
     if obj.tank_check_hit(walls)["l"]:
         if np.sin(obj.ang) <= 0:
             obj.r[0] -= obj.v * np.sin(obj.ang)
-            obj.rect.x -= obj.v * np.sin(obj.ang)
     if obj.tank_check_hit(walls)["r"]:
         if np.sin(obj.ang) >= 0:
             obj.r[0] -= obj.v * np.sin(obj.ang)
-            obj.rect.x -= obj.v * np.sin(obj.ang)
     if (obj.tank_check_hit(walls)["r"] == obj.tank_check_hit(walls)["l"]) and obj.tank_check_hit(walls)["r"] == False:
         obj.r[0] -= obj.v * np.sin(obj.ang)
-        obj.rect.x -= obj.v * np.sin(obj.ang)
     if obj.tank_check_hit(walls)["u"]:
         if np.cos(obj.ang) <= 0:
             obj.r[1] -= obj.v * np.cos(obj.ang)
-            obj.rect.y -= obj.v * np.cos(obj.ang)
     if obj.tank_check_hit(walls)["d"]:
         if np.cos(obj.ang) >= 0:
             obj.r[1] -= obj.v * np.cos(obj.ang)
-            obj.rect.y -= obj.v * np.cos(obj.ang)
     if (obj.tank_check_hit(walls)["u"] == obj.tank_check_hit(walls)["d"]) and obj.tank_check_hit(walls)["d"] == False:
         obj.r[1] -= obj.v * np.cos(obj.ang)
-        obj.rect.y -= obj.v * np.cos(obj.ang)
-
 
 def motion_down(obj, walls):
     if obj.tank_check_hit(walls)["l"]:
