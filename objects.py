@@ -14,7 +14,7 @@ class Tank:
         self.scale = scale * 0.6  # Характерный размер танка
         self.v = 1  # Модуль скорости
         self.ang = 0  # Изначально танк направлен вправо, угол в радианах и отсчитывается по часовой стрелке
-        self.omega = omega  # потом подберем
+        self.omega = 0.01 # потом подберем
         self.charges = 5
         self.tank_hit_walls = {'u': False, 'd': False, 'r': False, 'l': False}
         self.live = 1  # жизнь танка
@@ -38,7 +38,7 @@ class Tank:
     def draw(self, screen):
         image = pygame.image.load('tank_alt.png')
         rect = image.get_rect(center=(self.r[0], self.r[1]))
-        surf, r = rot_center(image, rect, self.ang)
+        surf, r = rot_center(image, rect, self.ang*57.3)
         screen.blit(surf, r)
 
 

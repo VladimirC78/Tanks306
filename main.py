@@ -143,7 +143,7 @@ def main():
                     w.wall_hit(t)
 
 
-                #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                 #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     # bullets.append(Bullet(...)) - выстрел
 
 

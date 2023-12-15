@@ -4,7 +4,7 @@ import numpy as np
 from load_hitbox import *
 
 
-def bullet_move(obj, field):
+def bullet_move(obj, walls):
     obj.r[0] += obj.v[0]  # вроде бы v- это вектор, поэтому беру проекцию
     obj.r[1] += obj.v[1]
     for wall in walls:
@@ -25,42 +25,44 @@ def motion_up(obj,
               walls):  # движение вверх с учетом столкновения танка со стенами в карте(у танка теперь есть свой словарь)
     if obj.tank_check_hit(walls)["l"]:
         if np.sin(obj.ang) <= 0:
-            obj.r[0] += obj.v * np.sin(obj.ang)
+            obj.r[0] -= obj.v * np.sin(obj.ang)
     if obj.tank_check_hit(walls)["r"]:
         if np.sin(obj.ang) >= 0:
-            obj.r[0] += obj.v * np.sin(obj.ang)
+            obj.r[0] -= obj.v * np.sin(obj.ang)
     if (obj.tank_check_hit(walls)["r"] == obj.tank_check_hit(walls)["l"]) and obj.tank_check_hit(walls)["r"] == False:
-        obj.r[0] += obj.v * np.sin(obj.ang)
+        obj.r[0] -= obj.v * np.sin(obj.ang)
+        print(2)
+
     if obj.tank_check_hit(walls)["u"]:
         if np.cos(obj.ang) <= 0:
-            obj.r[1] += obj.v * np.cos(obj.ang)
+            obj.r[1] -= obj.v * np.cos(obj.ang)
     if obj.tank_check_hit(walls)["d"]:
         if np.cos(obj.ang) >= 0:
-            obj.r[1] += obj.v * np.cos(obj.ang)
+            obj.r[1] -= obj.v * np.cos(obj.ang)
     if (obj.tank_check_hit(walls)["u"] == obj.tank_check_hit(walls)["d"]) and obj.tank_check_hit(walls)["d"] == False:
-        obj.r[1] += obj.v * np.cos(obj.ang)
+        obj.r[1] -= obj.v * np.cos(obj.ang)
 
 
 def motion_down(obj, walls):
     if obj.tank_check_hit(walls)["l"]:
         if np.sin(obj.ang) >= 0:
-            obj.r[0] -= obj.v * np.sin(obj.ang)
+            obj.r[0] += obj.v * np.sin(obj.ang)
     if obj.tank_check_hit(walls)["r"]:
         if np.sin(obj.ang) <= 0:
-            obj.r[0] -= obj.v * np.sin(obj.ang)
+            obj.r[0] += obj.v * np.sin(obj.ang)
     if (obj.tank_check_hit(walls)["r"] == obj.tank_check_hit(walls)["l"]) and not obj.tank_check_hit(walls)[
         "r"]:
-        obj.r[0] -= obj.v * np.sin(obj.ang)
+        obj.r[0] += obj.v * np.sin(obj.ang)
 
     if obj.tank_check_hit(walls)["u"]:
         if np.cos(obj.ang) >= 0:
-            obj.r[1] -= obj.v * np.cos(obj.ang)
+            obj.r[1] += obj.v * np.cos(obj.ang)
     if obj.tank_check_hit(walls)["d"]:
         if np.cos(obj.ang) <= 0:
-            obj.r[1] -= obj.v * np.cos(obj.ang)
+            obj.r[1] += obj.v * np.cos(obj.ang)
     if (obj.tank_check_hit(walls)["u"] == obj.tank_check_hit(walls)["d"]) and not obj.tank_check_hit(walls)[
         "d"]:
-        obj.r[1] -= obj.v * np.cos(obj.ang)
+        obj.r[1] += obj.v * np.cos(obj.ang)
 
 
 def tank_move(obj, walls):
