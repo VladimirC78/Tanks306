@@ -1,4 +1,12 @@
 import pygame
+
+
+def rot_center(image, rect, angle):
+    rot_image = pygame.transform.rotate(image, angle)
+    rot_rect = rot_image.get_rect(center=rect.center)
+    return rot_image, rot_rect
+
+
 class Tank:
     def __init__(self, x, y, omega, scale, type):
         self.type = type
@@ -26,13 +34,12 @@ class Tank:
         return self.tank_hit_walls
 
         # Количество выстрелов у танка, перезаряжается со временем
-    def draw(self,screen):
-        image = pygame.image.load('tank.png')
-        image=pygame.transform.rotate(image, self.ang)
-        target_surf = pygame.transform.scale(image, (self.scale*10,self.scale*10))
-        screen.blit(target_surf, (self.r[0], self.r[1]))
 
-
+    def draw(self, screen):
+        image = pygame.image.load('tank_alt.png')
+        rect = image.get_rect(center=(self.r[0], self.r[1]))
+        surf, r = rot_center(image, rect, self.ang)
+        screen.blit(surf, r)
 
 
 class Bullet:

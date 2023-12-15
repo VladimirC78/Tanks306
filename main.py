@@ -133,7 +133,6 @@ def main():
                     if field[i][j] == 1:
                         pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
             for event in pygame.event.get():
-                # print(tanks)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
