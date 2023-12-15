@@ -137,10 +137,6 @@ def main():
                     pygame.quit()
                     sys.exit()
             for t in tanks:
-                for w in walls:
-                    hitted = w.wall_hit(t)
-                    if hitted['d']:
-                        pygame.draw.circle(screen, (255, 0, 0), (240, 280), 30)
                 t.draw(screen)
                 tank_move(t, walls)
 
