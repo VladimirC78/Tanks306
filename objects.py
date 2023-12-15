@@ -28,10 +28,7 @@ class Tank:
         # Количество выстрелов у танка, перезаряжается со временем
     def draw(self,screen):
         image = pygame.image.load('tank.png')
-        if pygame.key.get_pressed()[pygame.K_a]:
-            image=pygame.transform.rotate(image,self.omega)
-        if pygame.key.get_pressed()[pygame.K_d]:
-            image=pygame.transform.rotate(image,-self.omega)
+        image=pygame.transform.rotate(image, self.ang)
         target_surf = pygame.transform.scale(image, (self.scale*10,self.scale*10))
         screen.blit(target_surf, (self.r[0], self.r[1]))
 
