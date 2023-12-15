@@ -54,7 +54,6 @@ def bullet_hittest(obj1, obj2):  # Проверка попадания пули 
         return False
 
 
-
 def create_walls(field, block_size):
     # Создает стены
     walls = []
@@ -98,14 +97,15 @@ class Wall:
                 self.hit_dict['d'] = True
         elif isinstance(obj, objects.Tank):
             # Координаты каждой из вершин танка
-            r_a = [obj.r[0] + 0.5 * obj.scale * np.cos(np.pi / 4 - obj.ang),
-                   obj.r[1] - 0.5 * obj.scale * np.sin(np.pi / 4 - obj.ang)]
-            r_c = [obj.r[0] - 0.5 * obj.scale * np.cos(np.pi / 4 - obj.ang),
-                   obj.r[1] + 0.5 * obj.scale * np.sin(np.pi / 4 - obj.ang)]
-            r_b = [obj.r[0] + 0.5 * obj.scale * np.cos(np.pi / 4 + obj.ang),
-                   obj.r[1] + 0.5 * obj.scale * np.sin(np.pi / 4 + obj.ang)]
-            r_d = [obj.r[0] - 0.5 * obj.scale * np.cos(np.pi / 4 + obj.ang),
-                   obj.r[1] - 0.5 * obj.scale * np.sin(np.pi / 4 + obj.ang)]
+            r_a = [obj.r[0] + 2**(-0.5) * obj.scale * np.cos(np.pi / 4 - obj.ang),
+                   obj.r[1] - 2**(-0.5) * obj.scale * np.sin(np.pi / 4 - obj.ang)]
+            r_c = [obj.r[0] - 2**(-0.5) * obj.scale * np.cos(np.pi / 4 - obj.ang),
+                   obj.r[1] + 2**(-0.5) * obj.scale * np.sin(np.pi / 4 - obj.ang)]
+            r_b = [obj.r[0] + 2**(-0.5) * obj.scale * np.cos(np.pi / 4 + obj.ang),
+                   obj.r[1] + 2**(-0.5) * obj.scale * np.sin(np.pi / 4 + obj.ang)]
+            r_d = [obj.r[0] - 2**(-0.5) * obj.scale * np.cos(np.pi / 4 + obj.ang),
+                   obj.r[1] - 2**(-0.5) * obj.scale * np.sin(np.pi / 4 + obj.ang)]
+            #print(r_a, r_b, r_c, r_d, obj.r)
             # Находим максимальные и минимальные координаты
             x_max = max(r_a[0], r_b[0], r_c[0], r_d[0])
             x_min = min(r_a[0], r_b[0], r_c[0], r_d[0])

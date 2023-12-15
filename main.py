@@ -121,10 +121,10 @@ def main():
                     pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
                 if field[i][j] == 2:
                     if not flag:
-                        tanks.append(objects.Tank(block_size * j, block_size * i, 1, 0.6 * block_size, 1))
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 0.01, block_size, 1))
                         flag = True
                     else:
-                        tanks.append(objects.Tank(block_size * j, block_size * i, 1, 0.6 * block_size, 2))
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 0.01, block_size, 2))
         while not level_finished:
             pygame.display.update()
             screen.fill((255, 255, 255))
@@ -137,11 +137,12 @@ def main():
                     pygame.quit()
                     sys.exit()
             for t in tanks:
+                for w in walls:
+                    hitted = w.wall_hit(t)
+                    if hitted['d']:
+                        pygame.draw.circle(screen, (255, 0, 0), (240, 280), 30)
                 t.draw(screen)
                 tank_move(t, walls)
-                for w in walls:
-                    w.wall_hit(t)
-
 
                  #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     # bullets.append(Bullet(...)) - выстрел

@@ -1,4 +1,5 @@
 import pygame
+import math
 
 
 def rot_center(image, rect, angle):
@@ -11,10 +12,10 @@ class Tank:
     def __init__(self, x, y, omega, scale, type):
         self.type = type
         self.r = list([x, y])  # Координаты танка по осям х и у
-        self.scale = scale * 0.6  # Характерный размер танка
-        self.v = 1  # Модуль скорости
+        self.scale = scale  # Характерный размер танка
+        self.v = 4  # Модуль скорости
         self.ang = 0  # Изначально танк направлен вправо, угол в радианах и отсчитывается по часовой стрелке
-        self.omega = 0.01 # потом подберем
+        self.omega = omega  # потом подберем
         self.charges = 5
         self.tank_hit_walls = {'u': False, 'd': False, 'r': False, 'l': False}
         self.live = 1  # жизнь танка
@@ -36,10 +37,11 @@ class Tank:
         # Количество выстрелов у танка, перезаряжается со временем
 
     def draw(self, screen):
-        image = pygame.image.load('tank_alt.png')
+        image = pygame.transform.scale(pygame.image.load('tank_alt.png'), (self.scale, self.scale))
         rect = image.get_rect(center=(self.r[0], self.r[1]))
-        surf, r = rot_center(image, rect, self.ang*57.3)
+        surf, r = rot_center(image, rect, self.ang * 180 / math.pi)
         screen.blit(surf, r)
+        print(rect)
 
 
 class Bullet:

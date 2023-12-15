@@ -31,7 +31,6 @@ def motion_up(obj,
             obj.r[0] -= obj.v * np.sin(obj.ang)
     if (obj.tank_check_hit(walls)["r"] == obj.tank_check_hit(walls)["l"]) and obj.tank_check_hit(walls)["r"] == False:
         obj.r[0] -= obj.v * np.sin(obj.ang)
-        print(2)
 
     if obj.tank_check_hit(walls)["u"]:
         if np.cos(obj.ang) <= 0:
