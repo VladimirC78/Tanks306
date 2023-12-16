@@ -6,7 +6,7 @@ import numpy as np
 import math
 import pygame
 
-map_number = 2
+map_number = len(Levels_encoded.fields)
 
 
 def distance_between_segments(x1, y1, x2, y2, x3, y3, x4, y4):
@@ -167,14 +167,13 @@ class Wall:
                 self.hit_dict['d'] = True
         elif isinstance(obj, objects.Tank):
             if pygame.Rect.colliderect(self.rect, obj.rect):
-                if np.sin(obj.ang) >= 0:
+                if 0 < dist[0] <= (self.block_size + obj.scale) * 0.5:
                     self.hit_dict['r'] = True
-                if np.sin(obj.ang) < 0:
+                if dist[0] < 0 and abs(dist[0]) <= (self.block_size + obj.scale) * 0.5:
                     self.hit_dict['l'] = True
-                if np.cos(obj.ang) < 0:
+                if dist[1] < 0 and abs(dist[1]) <= (self.block_size + obj.scale) * 0.5:
                     self.hit_dict['u'] = True
-                if np.cos(obj.ang) >= 0:
+                if 0 < dist[1] <= (self.block_size + obj.scale) * 0.5:
                     self.hit_dict['d'] = True
                 print(self.hit_dict)
-
         return self.hit_dict
