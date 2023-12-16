@@ -1,6 +1,8 @@
 import pygame
 import sys
-from load_hitbox import create_new_map
+from load_hitbox import *
+import objects
+from move_draw import tank_move
 
 """Нужно будет загрузить картинки и звуки в папку проекта, image path  и ему подобные - переменные, в которые 
 мы записываем путь на звуки и картинки(если загрузим в проект, то вместо полного пути можно будет использовать просто имя,
@@ -56,7 +58,7 @@ def main_menu(screen):
     running = True
     while running:
         screen.fill((0, 0, 0))
-        # screen.blit(menu_background, (-300, 0))
+        screen.blit(menu_background, (-300, 0))
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and start_button.is_hovered:
                 running = False
@@ -107,23 +109,40 @@ def main():
     game_finished = False
     level_finished = False
     while not game_finished:
+
         screen.fill((255, 255, 255))
         walls, field, block_size = create_new_map()
-        # tanks = list(Tank(...), Tank(...))
+        tanks = []
         bullets = []
+        flag = False
         for i in range(len(field)):
             for j in range(len(field[i])):
                 if field[i][j] == 1:
                     pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
+                if field[i][j] == 2:
+                    if not flag:
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 0.01, block_size, 1))
+                        flag = True
+                    else:
+                        tanks.append(objects.Tank(block_size * j, block_size * i, 0.01, block_size, 2))
         while not level_finished:
             pygame.display.update()
+            screen.fill((255, 255, 255))
+            for i in range(len(field)):
+                for j in range(len(field[i])):
+                    if field[i][j] == 1:
+                        pygame.draw.rect(screen, (0, 0, 0), (block_size * j, block_size * i, block_size, block_size))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    # bullets.append(Bullet(...)) - выстрел
+            for t in tanks:
+                t.rect = t.draw(screen)
+                pygame.draw.rect(screen, (0, 0, 0), t.rect)
+                tank_move(t, walls)
 
+                 #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    # bullets.append(Bullet(...)) - выстрел
 
 
 if __name__ == "__main__":
