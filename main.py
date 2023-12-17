@@ -138,7 +138,7 @@ def main():
                     sys.exit()
             for t in tanks:
                 t.rect = t.draw(screen)
-                pygame.draw.rect(screen, (0, 0, 0), t.rect)
+                #pygame.draw.rect(screen, (0, 0, 0), t.rect)
                 tank_move(t, walls)
 
                  #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
