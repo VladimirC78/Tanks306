@@ -51,4 +51,7 @@ class Bullet:
         self.scale = scale  # Радиус пули
         self.v = v  # Двумерный вектор со скоростями по осям
 
+    def draw(self, screen):
+        pygame.draw.circle(screen, (255, 0, 0), (self.r[0], self.r[1]), self.scale)
+
 # TODO Возможно, в процессе нужно будет добавить еще какие-то параметры

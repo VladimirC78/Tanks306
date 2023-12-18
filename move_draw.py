@@ -7,16 +7,16 @@ from load_hitbox import *
 def bullet_move(obj, walls):
     obj.r[0] += obj.v[0]  # вроде бы v- это вектор, поэтому беру проекцию
     obj.r[1] += obj.v[1]
-    for wall in walls:
-        if wall.wall_hit(obj)["l"]:
-            obj.v[0] *= -1
-        elif wall.wall_hit(obj)["r"]:
-            obj.v[0] *= -1
-        if wall.wall_hit(obj)["u"]:
-            obj.v[1] *= -1
-        elif wall.wall_hit(obj)["d"]:
-            obj.v[1] *= -1
-        """Пока вот так прописала условие столкновения пули и стены. НО есть риск, что пуля будет застревать на стенах
+    # for wall in walls:
+    #     if wall.wall_hit(obj)["l"]:
+    #         obj.v[0] *= -1
+    #     elif wall.wall_hit(obj)["r"]:
+    #         obj.v[0] *= -1
+    #     if wall.wall_hit(obj)["u"]:
+    #         obj.v[1] *= -1
+    #     elif wall.wall_hit(obj)["d"]:
+    #         obj.v[1] *= -1
+    """Пока вот так прописала условие столкновения пули и стены. НО есть риск, что пуля будет застревать на стенах
         , как тогда в пушке, если дополнительно пулю не отдалить от стены, но это уже нужно сделать после того,
        как игра сможет запуститься """
 

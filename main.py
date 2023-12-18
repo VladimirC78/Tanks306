@@ -2,7 +2,7 @@ import pygame
 import sys
 from load_hitbox import *
 import objects
-from move_draw import tank_move
+from move_draw import tank_move, bullet_move
 
 """Нужно будет загрузить картинки и звуки в папку проекта, image path  и ему подобные - переменные, в которые 
 мы записываем путь на звуки и картинки(если загрузим в проект, то вместо полного пути можно будет использовать просто имя,
@@ -113,7 +113,8 @@ def main():
         screen.fill((255, 255, 255))
         walls, field, block_size = create_new_map()
         tanks = []
-        bullets = []
+        bullets1 = []
+        bullets2 = []
         flag = False
         for i in range(len(field)):
             for j in range(len(field[i])):
@@ -136,14 +137,27 @@ def main():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    r_center = [tanks[1].r[0] + 0.65 * tanks[1].scale * np.sin(-tanks[1].ang), tanks[1].r[1] - 0.65 * tanks[1].scale * np.cos(-tanks[1].ang)]
+                    bullets2.append(objects.Bullet(r_center[0], r_center[1], [-2 * np.sin(tanks[1].ang), -2 * np.cos(tanks[1].ang)], 5))
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+                    r_center = [tanks[0].r[0] + 0.65 * tanks[0].scale * np.sin(-tanks[0].ang), tanks[0].r[1] - 0.65 * tanks[0].scale * np.cos(-tanks[0].ang)]
+                    bullets1.append(objects.Bullet(r_center[0], r_center[1], [-2 * np.sin(tanks[0].ang), -2 * np.cos(tanks[0].ang)], 5))
             for t in tanks:
                 t.rect = t.draw(screen)
-                #pygame.draw.rect(screen, (0, 0, 0), t.rect)
                 tank_move(t, walls)
 
-                 #elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    # bullets.append(Bullet(...)) - выстрел
+            for b in bullets1:
+                b.draw(screen)
+                bullet_move(b, walls)
+                if check_hit(tanks[1], b):
+                    print("Есть пробитие")
 
+            for b in bullets2:
+                b.draw(screen)
+                bullet_move(b, walls)
+                if check_hit(tanks[0], b):
+                    print("Есть пробитие")
 
 if __name__ == "__main__":
     main_menu(screen)

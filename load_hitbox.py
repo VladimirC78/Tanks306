@@ -129,7 +129,7 @@ def create_walls(field, block_size):
     for i in range(len(field)):
         for j in range(len(field[i])):
             if field[i][j] == 1:
-                walls.append(Wall(block_size, i * block_size + block_size * 0.5, j * block_size + block_size * 0.5))
+                walls.append(Wall(block_size, j * block_size + block_size * 0.5, i * block_size + block_size * 0.5))
 
     return walls
 
@@ -142,13 +142,22 @@ def create_new_map():
     walls = create_walls(field, block_size)
     return walls, field, block_size
 
+def check_hit(obj1, obj2):
+    x1 = obj1.rect.topleft[0] - obj2.scale
+    y1 = obj1.rect.topleft[1] - obj2.scale
+    hit_rect = pygame.Rect(x1, y1, obj1.scale + 2 * obj2.scale, obj1.scale + 2 * obj2.scale)
+    if hit_rect.collidepoint(obj2.r):
+        return True
+    else:
+        return False
+
 
 class Wall:
     def __init__(self, block_size, x, y):
         self.block_size = block_size
         self.r = list([x, y])
         self.hit_dict = {'u': False, 'd': False, 'r': False, 'l': False}
-        self.rect = pygame.Rect(y - block_size * 0.5, x - block_size * 0.5, block_size, block_size)
+        self.rect = pygame.Rect(x - block_size * 0.5, y - block_size * 0.5, block_size, block_size)
 
     def wall_hit(self, obj):
         # Проверка на соударение объекта со стенкой, принимает на вход параметры объекта
@@ -175,5 +184,7 @@ class Wall:
                     self.hit_dict['u'] = True
                 if 0 < dist[1] <= (self.block_size + obj.scale) * 0.5:
                     self.hit_dict['d'] = True
-                print(self.hit_dict)
+                print(self.hit_dict, self.r, obj.r, dist)
         return self.hit_dict
+
+
